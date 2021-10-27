@@ -561,7 +561,7 @@ if (Test-Path "HKLM:\SOFTWARE\7-Zip") {
 }
 else {
 	if (Test-Path "HKLM:\SOFTWARE\WinRAR") {
-		$winRarPath = Get-ItemProperty -Path "HKLM:\SOFTWARE\WinRAR" -Name "exe64"
+		$winRarPath = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WinRAR" -Name "exe64"
 
 		if (Test-Path $winRarPath) {
 			$archiverProgram = $winRarPath
