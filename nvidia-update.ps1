@@ -679,7 +679,7 @@ if (Test-Path "$($PSScriptRoot)\optional-components.cfg") {
 if ($7zInstalled) {
 	Start-Process -FilePath $archiverProgram -NoNewWindow -ArgumentList "x -bso0 -bsp1 -bse1 -aoa $($dlDriverPath) $($filesToExtract) -o$($extractDir)" -Wait
 }
-elseif ($archiverProgram -eq $winrarpath) {
+elseif ($archiverProgram -eq $winRarPath) {
 	Start-Process -FilePath $archiverProgram -NoNewWindow -ArgumentList "x $($dlDriverPath) $($extractDir) -IBCK $($filesToExtract)" -Wait
 }
 else {
