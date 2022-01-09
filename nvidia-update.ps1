@@ -12,7 +12,7 @@ param (
 	[switch] $Schedule = $false, # Register a scheduled task to periodically run this script; MSI will always be enabled if it "-Msi" was also set
 	[switch] $Desktop = $false, # Override the desktop/notebook check and download the desktop driver; useful when using an external GPU or unable to find a driver
 	[switch] $Notebook = $false, # Override the desktop/notebook check and download the notebook driver
-	[string] $Directory = "$($env:TEMP)\NVIDIA" # The directory where the script will download and extract the driver
+	[string] $Directory = "x:\_tools_\NVIDIA\_tmp" # The directory where the script will download and extract the driver
 )
 
 ## Constant variables and functions
@@ -626,7 +626,7 @@ try {
 	$gpuId, $osId, $dch = Get-DriverLookupParameters $gpuName $isNotebook
 	$driverDownloadInfo = Get-DriverDownloadInfo $gpuId $osId $dch
 
-	$latestDriverVersion = $driverDownloadInfo.Version
+	$latestDriverVersion = [decimal]$driverDownloadInfo.Version
 
 	Write-Host "`tLatest driver version:`t`t$($latestDriverVersion)"
 }
@@ -637,6 +637,10 @@ catch {
 ## Compare installed driver version to latest driver version
 if (-not $Clean -and ($currentDriverVersion -eq $latestDriverVersion)) {
 	Write-ExitError "`nThe latest driver (version $($currentDriverVersion)) is already installed."
+} elseif ([decimal]$currentDriverVersion -gt [decimal]$latestDriverVersion) {
+	Write-ExitError "`nCurrenttly installed driver ($currentDriverVersion) is newer than version found online ($latestDriverVersion)."
+} else {
+	Write-Host "`nNewer driver found: $latestDriverVersion" -ForegroundColor Green
 }
 
 ## Create temporary folder and download the installer
@@ -650,7 +654,7 @@ if ($decision -eq 0) {
 	# Remove existing temporary folder if present
 	Remove-Temp $Directory
 
-	New-Item -Path $Directory -ItemType "directory" > $null
+	New-Item -Path $Directory -ItemType "directory" -ErrorAction SilentlyContinue
 
 	Write-Time
 	Write-Host "Downloading latest driver installer..."
