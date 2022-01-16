@@ -1,5 +1,5 @@
 <#PSScriptInfo
-.VERSION 1.12
+.VERSION 1.13
 .GUID dd04650b-78dc-4761-89bf-b6eeee74094c
 .AUTHOR ZenitH-AT
 .LICENSEURI https://raw.githubusercontent.com/ZenitH-AT/nvidia-update/master/LICENSE
