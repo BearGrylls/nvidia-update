@@ -12,7 +12,7 @@ param (
 	[switch] $Schedule = $false, # Register a scheduled task to periodically run this script; MSI will always be enabled if it "-Msi" was also set
 	[switch] $Desktop = $false, # Override the desktop/notebook check and download the desktop driver; useful when using an external GPU or unable to find a driver
 	[switch] $Notebook = $false, # Override the desktop/notebook check and download the notebook driver
-	[string] $Directory = "x:\_tools_\NVIDIA\_tmp" # The directory where the script will download and extract the driver
+	[string] $Directory = "$($env:TEMP)\NVIDIA" # The directory where the script will download and extract the driver
 )
 
 ## Constant variables and functions
