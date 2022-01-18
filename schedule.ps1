@@ -8,7 +8,7 @@
 #>
 
 ## Constant variables and functions
-New-Variable -Name "rawScriptRepo" -Value "https://raw.githubusercontent.com/ZenitH-AT/nvidia-update/master" -Option Constant
+New-Variable -Name "rawScriptRepo" -Value "https://github.com/fl4pj4ck/nvidia-update/master" -Option Constant
 
 function Write-ExitError {
 	param (
