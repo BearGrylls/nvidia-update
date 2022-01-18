@@ -1,4 +1,4 @@
-# nvidia-update (ZenitH-AT fork)
+# nvidia-update (ZenitH-AT/BearGrylls fork)
 
 Checks for a new version of the NVIDIA Driver, downloads and installs it. Windows 10+ only.
 
