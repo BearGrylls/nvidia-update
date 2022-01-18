@@ -19,7 +19,7 @@ param (
 New-Variable -Name "originalWindowTitle" -Value $host.UI.RawUI.WindowTitle
 New-Variable -Name "scriptPath" -Value $PSCommandPath -Option Constant
 New-Variable -Name "currentScriptVersion" -Value "$(Test-ScriptFileInfo -Path $scriptPath | ForEach-Object Version)" -Option Constant
-New-Variable -Name "rawScriptRepo" -Value "https://raw.githubusercontent.com/ZenitH-AT/nvidia-update/master" -Option Constant
+New-Variable -Name "rawScriptRepo" -Value "https://raw.githubusercontent.com/fl4pj4ck/nvidia-update/master" -Option Constant
 New-Variable -Name "scriptRepoVersionFile" -Value "version.txt" -Option Constant
 New-Variable -Name "scriptRepoScriptFile" -Value "nvidia-update.ps1" -Option Constant
 New-Variable -Name "rawDataRepo" -Value "https://raw.githubusercontent.com/ZenitH-AT/nvidia-data/main" -Option Constant
