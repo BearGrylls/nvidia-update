@@ -1,5 +1,5 @@
 <#PSScriptInfo
-.VERSION 1.12
+.VERSION 1.13
 .GUID dd04650b-78dc-4761-89bf-b6eeee74094c
 .AUTHOR ZenitH-AT
 .LICENSEURI https://raw.githubusercontent.com/ZenitH-AT/nvidia-update/master/LICENSE
@@ -19,7 +19,7 @@ param (
 New-Variable -Name "originalWindowTitle" -Value $host.UI.RawUI.WindowTitle
 New-Variable -Name "scriptPath" -Value $PSCommandPath -Option Constant
 New-Variable -Name "currentScriptVersion" -Value "$(Test-ScriptFileInfo -Path $scriptPath | ForEach-Object Version)" -Option Constant
-New-Variable -Name "rawScriptRepo" -Value "https://raw.githubusercontent.com/ZenitH-AT/nvidia-update/master" -Option Constant
+New-Variable -Name "rawScriptRepo" -Value "https://raw.githubusercontent.com/fl4pj4ck/nvidia-update/master" -Option Constant
 New-Variable -Name "scriptRepoVersionFile" -Value "version.txt" -Option Constant
 New-Variable -Name "scriptRepoScriptFile" -Value "nvidia-update.ps1" -Option Constant
 New-Variable -Name "rawDataRepo" -Value "https://raw.githubusercontent.com/ZenitH-AT/nvidia-data/main" -Option Constant
@@ -626,7 +626,7 @@ try {
 	$gpuId, $osId, $dch = Get-DriverLookupParameters $gpuName $isNotebook
 	$driverDownloadInfo = Get-DriverDownloadInfo $gpuId $osId $dch
 
-	$latestDriverVersion = $driverDownloadInfo.Version
+	$latestDriverVersion = [decimal]$driverDownloadInfo.Version
 
 	Write-Host "`tLatest driver version:`t`t$($latestDriverVersion)"
 }
@@ -637,6 +637,10 @@ catch {
 ## Compare installed driver version to latest driver version
 if (-not $Clean -and ($currentDriverVersion -eq $latestDriverVersion)) {
 	Write-ExitError "`nThe latest driver (version $($currentDriverVersion)) is already installed."
+} elseif ([decimal]$currentDriverVersion -gt [decimal]$latestDriverVersion) {
+	Write-ExitError "`nCurrenttly installed driver ($currentDriverVersion) is newer than version found online ($latestDriverVersion)."
+} else {
+	Write-Host "`nNewer driver found: $latestDriverVersion" -ForegroundColor Green
 }
 
 ## Create temporary folder and download the installer
@@ -650,7 +654,7 @@ if ($decision -eq 0) {
 	# Remove existing temporary folder if present
 	Remove-Temp $Directory
 
-	New-Item -Path $Directory -ItemType "directory" > $null
+	New-Item -Path $Directory -ItemType "directory" -ErrorAction SilentlyContinue
 
 	Write-Time
 	Write-Host "Downloading latest driver installer..."

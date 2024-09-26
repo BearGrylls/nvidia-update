@@ -1,10 +1,10 @@
-# nvidia-update (ZenitH-AT fork)
+# nvidia-update (ZenitH-AT/BearGrylls fork)
 
 Checks for a new version of the NVIDIA Driver, downloads and installs it. Windows 10+ only.
 
 ## Usage
 
-- Download the [latest release](https://github.com/ZenitH-AT/nvidia-update/releases/latest) or pull `nvidia-update.ps1` and `optional-components.cfg` (optional; allows the user to specify what optional components to include, such as PhysX)
+- Download the [latest release](https://github.com/fl4pj4ck/nvidia-update/releases/latest) or pull `nvidia-update.ps1` and `optional-components.cfg` (optional; allows the user to specify what optional components to include, such as PhysX)
 - If `optional-components.cfg` was downloaded, edit the file based on your preferences (similar to NVSlimmer; by default most components are commented out).
 - Right click `nvidia-update.ps1` and select `Run with PowerShell` (or run with optional parameters)
 - If the script finds a newer version of the NVIDIA driver, it will download and install a slimmed version of it.
@@ -29,7 +29,7 @@ Checks for a new version of the NVIDIA Driver, downloads and installs it. Window
 You can run the following PowerShell command to download and run the script weekly:
 
 ```ps
-Invoke-Expression (Invoke-WebRequest -Uri "https://github.com/ZenitH-AT/nvidia-update/raw/master/schedule.ps1").Content
+Invoke-Expression (Invoke-WebRequest -Uri "https://github.com/fl4pj4ck/nvidia-update/raw/master/schedule.ps1").Content
 ```
 
 ## Requirements / Dependencies
